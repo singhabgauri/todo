@@ -3,10 +3,9 @@ services:
     name: todo-app
     env: java
     buildCommand: >
-      export PATH=/opt/maven/bin:$PATH &&
-      export TERM=dumb &&
-      export NO_COLOR=1 &&
-      mvn clean package -B -DskipTests -Dstyle.color=never --no-transfer-progress
+      TERM=dumb 
+      NO_COLOR=1 
+      /opt/maven/bin/mvn clean package -B -DskipTests -Dstyle.color=never --no-transfer-progress
     startCommand: >
       java -jar target/*.jar
       -Dspring.output.ansi.enabled=never
@@ -20,8 +19,6 @@ services:
         value: "never"
       - key: SPRING_MAIN_BANNER_MODE
         value: "off"
-      - key: PATH
-        value: "/opt/maven/bin:/opt/java/bin:${PATH}"
     buildEnv:
       - key: JAVA_VERSION
         value: "17"
