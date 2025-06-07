@@ -2,8 +2,14 @@ services:
   - type: web
     name: todo-app
     env: java
-    buildCommand: TERM=dumb NO_COLOR=1 ./mvnw clean package -DskipTests -B --no-transfer-progress
-    startCommand: java -Dspring.output.ansi.enabled=never -jar target/*.jar
+    buildCommand: >
+      export TERM=dumb &&
+      export NO_COLOR=1 &&
+      mvn clean package -B -DskipTests -Dstyle.color=never --no-transfer-progress
+    startCommand: >
+      java -jar target/*.jar
+      -Dspring.output.ansi.enabled=never
+      -Dspring.main.banner-mode=off
     envVars:
       - key: TERM
         value: dumb
@@ -17,4 +23,4 @@ services:
       - key: JAVA_VERSION
         value: "17"
       - key: MAVEN_OPTS
-        value: "-Dstyle.color=never --no-transfer-progress"
+        value: "-Dstyle.color=never -Djansi.passthrough=true -Djansi.strip=true"
