@@ -2,17 +2,17 @@ services:
   - type: web
     name: todo-app
     env: java
-    buildCommand: ./mvnw package -B -DskipTests
+    buildCommand: ./mvnw clean package -DskipTests -B --no-transfer-progress
     startCommand: java -jar target/*.jar
     envVars:
-      - key: SPRING_OUTPUT_ANSI_ENABLED
-        value: "never"
       - key: TERM
-        value: "dumb"
+        value: dumb
       - key: NO_COLOR
         value: "true"
+      - key: SPRING_OUTPUT_ANSI_ENABLED
+        value: "never"
+      - key: JAVA_OPTS
+        value: "-Dspring.output.ansi.enabled=never"
     buildEnv:
-      - key: JAVA_VERSION
-        value: "17"
       - key: MAVEN_OPTS
         value: "--no-transfer-progress"
