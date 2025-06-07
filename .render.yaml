@@ -2,14 +2,8 @@ services:
   - type: web
     name: todo-app
     env: java
-    buildCommand: >
-      TERM=dumb 
-      NO_COLOR=1 
-      /opt/maven/bin/mvn clean package -B -DskipTests -Dstyle.color=never --no-transfer-progress
-    startCommand: >
-      java -jar target/*.jar
-      -Dspring.output.ansi.enabled=never
-      -Dspring.main.banner-mode=off
+    buildCommand: "/opt/maven/bin/mvn clean package -B -DskipTests -Dstyle.color=never --no-transfer-progress"
+    startCommand: "java -jar target/*.jar -Dspring.output.ansi.enabled=never -Dspring.main.banner-mode=off"
     envVars:
       - key: TERM
         value: dumb
