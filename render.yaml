@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: todo-app
+    env: java
+    buildCommand: mvn clean package -DskipTests -B
+    startCommand: java -jar target/*.jar
+    envVars:
+      - key: GOOGLE_CLIENT_ID
+        value: 1057612742830-9fj0qlr6lojacitk7n68rsuigj56rpcf.apps.googleusercontent.com
+      - key: GOOGLE_CLIENT_SECRET
+        value: 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
+      - key: MONGODB_URI
+        value: mongodb://localhost:27017/firstdb
