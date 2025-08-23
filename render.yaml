@@ -1,23 +1,20 @@
 services:
   - type: web
     name: todo-app
-    runtime: java
-    plan: free
-    buildCommand: >
-      export JAVA_HOME=/opt/java/openjdk &&
-      export PATH=${JAVA_HOME}/bin:${PATH} &&
+    env: docker
+    buildCommand: |
+      mkdir -p /opt/java/openjdk
+      curl -L https://download.java.net/java/GA/jdk17.0.7/4d5d5f612a026ac13ef94d5c8f8c1e50/7/GPL/openjdk-17.0.7_linux-x64_bin.tar.gz | tar -xz -C /opt/java/openjdk --strip-components=1
+      export JAVA_HOME=/opt/java/openjdk
+      export PATH="${JAVA_HOME}/bin:${PATH}"
       ./mvnw clean package -DskipTests
     startCommand: java -jar target/*.jar
     envVars:
       - key: JAVA_HOME
         value: /opt/java/openjdk
-      - key: JAVA_VERSION
-        value: "17"
       - key: GOOGLE_CLIENT_ID
         value: 1057612742830-9fj0qlr6lojacitk7n68rsuigj56rpcf.apps.googleusercontent.com
       - key: GOOGLE_CLIENT_SECRET
         value: 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
       - key: MONGODB_URI
         value: mongodb://localhost:27017/firstdb
-    healthCheckPath: /actuator/health
-    autoDeploy: true

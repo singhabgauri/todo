@@ -1,6 +1,0 @@
-{
-  "skipDetection": true,
-  "buildpacks": [
-    { "url": "heroku/jvm" }
-  ]
-}
