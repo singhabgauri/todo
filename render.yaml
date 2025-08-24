@@ -3,14 +3,16 @@ services:
     name: todo-app
     env: docker
     buildCommand: |
-      export TERM=dumb
-      export NO_COLOR=1
-      mkdir -p /opt/java/openjdk
-      curl -L https://download.java.net/java/GA/jdk17.0.7/4d5d5f612a026ac13ef94d5c8f8c1e50/7/GPL/openjdk-17.0.7_linux-x64_bin.tar.gz | tar -xz -C /opt/java/openjdk --strip-components=1
-      export JAVA_HOME=/opt/java/openjdk
-      export PATH="${JAVA_HOME}/bin:${PATH}"
+      curl -s "https://get.sdkman.io" | bash
+      source "$HOME/.sdkman/bin/sdkman-init.sh"
+      sdk install java 17.0.7-tem
+      sdk use java 17.0.7-tem
       ./mvnw clean package -DskipTests -B --no-transfer-progress
-    startCommand: java -jar target/*.jar
+    startCommand: |
+      java -jar target/*.jar \
+      -Dspring.output.ansi.enabled=never \
+      -Dserver.port=$PORT \
+      -Dspring.profiles.active=prod
     envVars:
       - key: TERM
         value: dumb
@@ -18,8 +20,6 @@ services:
         value: "1"
       - key: SPRING_OUTPUT_ANSI_ENABLED
         value: "never"
-      - key: JAVA_HOME
-        value: /opt/java/openjdk
       - key: GOOGLE_CLIENT_ID
         value: 1057612742830-9fj0qlr6lojacitk7n68rsuigj56rpcf.apps.googleusercontent.com
       - key: GOOGLE_CLIENT_SECRET
