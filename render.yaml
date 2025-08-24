@@ -3,7 +3,6 @@ services:
     name: todo-app
     runtime: docker
     buildCommand: ./mvnw clean package -DskipTests -B --no-transfer-progress
-    startCommand: java -Dspring.output.ansi.enabled=never -Dserver.port=$PORT -Dspring.profiles.active=prod -jar target/first-0.0.1-SNAPSHOT.jar              
     envVars:
       - key: TERM
         value: dumb
