@@ -1,18 +1,18 @@
 services:
   - type: web
     name: todo-app
-    env: docker
+    env: java
     buildCommand: |
       curl -s "https://get.sdkman.io" | bash
       source "$HOME/.sdkman/bin/sdkman-init.sh"
       sdk install java 17.0.7-tem
       sdk use java 17.0.7-tem
       ./mvnw clean package -DskipTests -B --no-transfer-progress
-    startCommand: |
-      java -jar target/*.jar \
+    startCommand: |    
       -Dspring.output.ansi.enabled=never \
       -Dserver.port=$PORT \
       -Dspring.profiles.active=prod
+      java -jar target/*.jar \
     envVars:
       - key: TERM
         value: dumb
@@ -25,4 +25,4 @@ services:
       - key: GOOGLE_CLIENT_SECRET
         value: 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
       - key: MONGODB_URI
-        value: mongodb://localhost:27017/firstdb
+        value: mongodb+srv://gaurisingh5544:gaurisingh5544@cluster0.r0s2h.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
