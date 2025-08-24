@@ -2,17 +2,11 @@ services:
   - type: web
     name: todo-app
     env: java
-    buildCommand: |
-      curl -s "https://get.sdkman.io" | bash
-      source "$HOME/.sdkman/bin/sdkman-init.sh"
-      sdk install java 17.0.7-tem
-      sdk use java 17.0.7-tem
-      ./mvnw clean package -DskipTests -B --no-transfer-progress
-    startCommand: |    
-      -Dspring.output.ansi.enabled=never \
-      -Dserver.port=$PORT \
-      -Dspring.profiles.active=prod
-      java -jar target/*.jar \
+    buildCommand: ./mvnw clean package -DskipTests -B --no-transfer-progress
+    startCommand: java -Dspring.output.ansi.enabled=never \
+                      -Dserver.port=$PORT \
+                      -Dspring.profiles.active=prod \
+                      -jar target/*.jar
     envVars:
       - key: TERM
         value: dumb
