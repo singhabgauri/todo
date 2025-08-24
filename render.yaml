@@ -3,13 +3,7 @@ services:
     name: todo-app
     env: java
     buildCommand: ./mvnw clean package -DskipTests -B --no-transfer-progress
-    startCommand: |
-     echo "Listing repo files:"
-     ls -l
-     echo "Listing target folder contents:"
-     ls -l target/
-     echo "Starting app..."
-     java -Dspring.output.ansi.enabled=never -Dserver.port=$PORT -Dspring.profiles.active=prod -jar target/*.jar
+    startCommand: java -Dspring.output.ansi.enabled=never -Dserver.port=$PORT -Dspring.profiles.active=prod -jar target/first-0.0.1-SNAPSHOT.jar
     envVars:
       - key: TERM
         value: dumb
