@@ -3,10 +3,7 @@ services:
     name: todo-app
     env: java
     buildCommand: ./mvnw clean package -DskipTests -B --no-transfer-progress
-    startCommand: java -Dspring.output.ansi.enabled=never \
-                      -Dserver.port=$PORT \
-                      -Dspring.profiles.active=prod \
-                      -jar target/*.jar
+    startCommand: java -Dspring.output.ansi.enabled=never -Dserver.port=$PORT -Dspring.profiles.active=prod -jar target/*.jar
     envVars:
       - key: TERM
         value: dumb
@@ -19,4 +16,4 @@ services:
       - key: GOOGLE_CLIENT_SECRET
         value: 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
       - key: MONGODB_URI
-        value: mongodb+srv://gaurisingh5544:gaurisingh5544@cluster0.r0s2h.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+        value: mongodb+srv://gaurisingh5544:gaurisingh5544@cluster0.r0s2h.mongodb.net/firstdb?retryWrites=true&w=majority
